@@ -1,0 +1,24 @@
+Task List
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created By</th>
+        <th>Dead Line</th>
+        <th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('add', 0)">Add New Task</button></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="task in tasks">
+        <td><a href="#tasks/<% task.slug %>"> <% task.title %> </a> </td>
+        <td><% task.description %></td>
+        <td><% task.created_by %></td>
+        <td><% task.deadline %></td>
+        <td>
+            <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', task.id)">Edit</button>
+            <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(task.id)">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
