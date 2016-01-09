@@ -93,6 +93,11 @@ anguLara.config(function($routeProvider) {
             controller  : 'taskController'
         })
 
+        .when('/tasks/:title*', {
+            templateUrl : 'app/views/task.html',
+            controller  : 'taskController'
+        })
+
 
 
         // route for the contact page
@@ -115,11 +120,11 @@ anguLara.controller('contactController', function($scope) {
     $scope.message = 'Contact us! JK. This is just a demo.';
 });
 
-anguLara.controller('taskController', function($scope, $http, API_URL) {
+anguLara.controller('taskController', function($scope, $routeParams, $http, API_URL) {
+    var param1 = $routeParams.title;
+    console.log(param1);
     $http.get(API_URL + "tasks")
         .success(function(response) {
             $scope.tasks = response;
-
-            console.log(response);
         });
 });
