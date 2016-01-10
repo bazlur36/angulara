@@ -1,4 +1,4 @@
-Task List
+Task Detail
 <table class="table">
     <thead>
     <tr>
@@ -11,7 +11,7 @@ Task List
     </thead>
     <tbody>
     <tr ng-repeat="task in tasks">
-        <td><a href="#task/<% task.slug %>"> <% task.title %> </a> </td>
+        <td><a href="#task/<% task.slug %>/edit"> <% task.title %> </a> </td>
         <td><% task.description %></td>
         <td><% task.created_by %></td>
         <td><% task.deadline %></td>

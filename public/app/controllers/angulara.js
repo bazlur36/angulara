@@ -88,23 +88,29 @@ anguLara.config(function($routeProvider) {
             controller  : 'aboutController'
         })
 
-        .when('/tasks', {
-            templateUrl : 'app/views/tasks.html',
-            controller  : 'taskController'
-        })
-
-        .when('/tasks/:title*', {
-            templateUrl : 'app/views/task.html',
-            controller  : 'taskController'
-        })
-
-
 
         // route for the contact page
         .when('/contact', {
             templateUrl : 'app/views/contact.html',
             controller  : 'contactController'
         })
+
+        .when('/tasks', {
+            templateUrl : 'app/views/tasks.html',
+            controller  : 'taskController'
+        })
+
+        .when('/task/:title', {
+            templateUrl : 'app/views/task.html',
+            controller  : 'taskDetailController'
+        })
+        .when('/task/:title/edit', {
+            templateUrl : 'app/views/edit-task.html',
+            controller  : 'taskEditController'
+        })
+
+
+
 });
 
 anguLara.controller('mainController', function($scope) {
@@ -121,8 +127,20 @@ anguLara.controller('contactController', function($scope) {
 });
 
 anguLara.controller('taskController', function($scope, $routeParams, $http, API_URL) {
-    var param1 = $routeParams.title;
-    console.log(param1);
+    $http.get(API_URL + "tasks")
+        .success(function(response) {
+            $scope.tasks = response;
+        });
+});
+
+anguLara.controller('taskDetailController', function($scope, $routeParams, $http, API_URL) {
+    $http.get(API_URL + "tasks")
+        .success(function(response) {
+            $scope.tasks = response;
+        });
+});
+
+anguLara.controller('taskEditController', function($scope, $routeParams, $http, API_URL) {
     $http.get(API_URL + "tasks")
         .success(function(response) {
             $scope.tasks = response;
