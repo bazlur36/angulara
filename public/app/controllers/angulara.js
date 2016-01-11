@@ -134,9 +134,11 @@ anguLara.controller('taskController', function($scope, $routeParams, $http, API_
 });
 
 anguLara.controller('taskDetailController', function($scope, $routeParams, $http, API_URL) {
-    $http.get(API_URL + "tasks")
+
+    console.log($routeParams.title);
+    $http.get(API_URL + "tasks/"+$routeParams.title)
         .success(function(response) {
-            $scope.tasks = response;
+            $scope.task = response;
         });
 });
 

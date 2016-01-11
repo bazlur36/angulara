@@ -5,6 +5,12 @@
 
     <!-- Load Bootstrap CSS -->
     <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
+
+    <link rel="stylesheet" href="<?php echo  URL::asset('sass/app.css') ?>">
+
+
+    <link media="all" type="text/css" rel="stylesheet"
+    href="http://localhost:8000/css/style.css">
 </head>
 <body>
 <div class="container">

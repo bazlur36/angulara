@@ -58,9 +58,8 @@ class TaskController extends Controller {
 	 */
 	public function show($id)
 	{
-		$task = Task::findOrFail($id);
-
-		return view('tasks.show', compact('task'));
+		$task = $post = Task::findBySlug($id);
+		return $task;
 	}
 
 	/**
