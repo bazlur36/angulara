@@ -17,11 +17,12 @@ Route::get('/', function () {
 
 Route::get('/api/v1/employees/{id?}', 'Employees@index');
 Route::post('/api/v1/employees', 'Employees@store');
-Route::post('/api/v1/employees/{id}', 'Employees@update');
+Route::put('/api/v1/employees/{id}', 'Employees@update');
 Route::delete('/api/v1/employees/{id}', 'Employees@destroy');
 
 Route::resource("tasks","TaskController");
 Route::group(array('prefix' => 'api/v1'), function()
 {
     Route::resource('tasks', 'API\TaskController');
+    Route::resource('employees', 'API\Employees');
 });

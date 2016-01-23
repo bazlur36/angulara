@@ -32,7 +32,7 @@ anguLara.controller('angularaController', function($scope, $http, API_URL) {
     //save new record / update existing record
     $scope.save = function(modalstate, id) {
         var url = API_URL + "employees";
-
+        alert(modalstate);
         //append employee id to the URL if the form is in edit mode
         if (modalstate === 'edit'){
             url += "/" + id;
@@ -135,16 +135,47 @@ anguLara.controller('taskController', function($scope, $routeParams, $http, API_
 
 anguLara.controller('taskDetailController', function($scope, $routeParams, $http, API_URL) {
 
-    console.log($routeParams.title);
+    $http.get(API_URL + "tasks/"+$routeParams.title)
+        .success(function(response) {
+            $scope.task = response;
+    });
+});
+
+
+anguLara.controller('taskEditController', function($scope, $routeParams, $http, API_URL) {
+    $http.get(API_URL + "tasks/"+$routeParams.title)
+        .success(function(response) {
+            $scope.task = response;
+            $scope.form_title = "Employee Detail!";
+
+        });
+});
+
+anguLara.controller('HttpPutController', function($scope, $routeParams, $http, API_URL) {
     $http.get(API_URL + "tasks/"+$routeParams.title)
         .success(function(response) {
             $scope.task = response;
         });
+
+    $scope.UpdateData = function () {
+        var data = $.param({
+            title: $scope.task.title
+        });
+
+        console.log(data);
+
+       // alert(API_URL + "tasks/"+$scope.task.id);
+
+        $http.put(API_URL + "tasks/"+$scope.task.id)
+            .success(function (data, status, headers) {
+                $scope.ServerResponse = data;
+            })
+            .error(function (data, status, header, config) {
+                $scope.ServerResponse =  htmlDecode("Data: " + data +
+                    "\n\n\n\nstatus: " + status +
+                    "\n\n\n\nheaders: " + header +
+                    "\n\n\n\nconfig: " + config);
+            });
+    };
 });
 
-anguLara.controller('taskEditController', function($scope, $routeParams, $http, API_URL) {
-    $http.get(API_URL + "tasks")
-        .success(function(response) {
-            $scope.tasks = response;
-        });
-});

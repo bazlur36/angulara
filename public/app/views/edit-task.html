@@ -1,24 +1,58 @@
 Edit Task
-<table class="table">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Created By</th>
-        <th>Dead Line</th>
-        <th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('add', 0)">Add New Task</button></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="task in tasks">
-        <td><a href="#task/<% task.slug %>"> <% task.title %> </a> </td>
-        <td><% task.description %></td>
-        <td><% task.created_by %></td>
-        <td><% task.deadline %></td>
-        <td>
-            <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', task.id)">Edit</button>
-            <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(task.id)">Delete</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <br><%task%>
+<div class="task-detail">
+
+    <div class="well">
+        <div class="panel">
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>Title</label>
+                </div>
+                <div class="col-lg-10">
+                    <% task.title %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>Description</label>
+                </div>
+                <div class="col-lg-10">
+                    <% task.description %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label> Created By</label>
+                </div>
+                <div class="col-lg-10">
+                    <% task.created_by %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label> Due Date </label>
+                </div>
+                <div class="col-lg-10">
+                    <% task.deadline %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<% task.title %>
+<div ng-controller="HttpPutController">
+    <h2>AngularJS Put request </h2>
+    <form ng-submit="UpdateData()">
+        <p>Title:
+            <input type="text" name="input" ng-model="task.title"
+                   ng-pattern="example.word" required ng-trim="false">
+            <input type="text" name="input" ng-model="task.id"
+                   ng-pattern="example.word" required ng-trim="false">
+        </p>
+        <input type="submit" value="Submit" />
+        <hr />
+        <% ServerResponse %>
+    </form>
+</div>

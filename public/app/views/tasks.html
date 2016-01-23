@@ -1,26 +1,35 @@
 Task List
+        <div class="row">
+            <div class="col-lg-6"></div>
+            <div class="col-lg-6"><label>Search: <input ng-model="searchText"></label></div>
+        </div>
+        <div class="panel">
 <table class="table">
     <thead>
     <tr>
         <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
+        <th style="width: 250px">Title</th>
+        <th style="width: 250px">Description</th>
         <th>Created By</th>
+        <th>Status</th>
         <th>Dead Line</th>
         <th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('add', 0)">Add New Task</button></th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="task in tasks">
+    <tr ng-repeat="task in tasks | filter:searchText">
         <th><% task.id %></th>
         <td><a href="#task/<% task.slug %>"> <% task.title %> </a> </td>
         <td><% task.description %></td>
         <td><% task.created_by %></td>
+        <td><% task.status %></td>
         <td><% task.deadline %></td>
         <td>
-            <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', task.id)">Edit</button>
+            <a class="btn btn-default btn-xs btn-detail" href="#task/<% task.slug %>">View</a>
+            <a class="btn btn-default btn-xs btn-detail" href="#task/<% task.slug %>/edit">Edit</a>
             <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(task.id)">Delete</button>
         </td>
     </tr>
     </tbody>
 </table>
+        </div>
