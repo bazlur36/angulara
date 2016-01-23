@@ -162,20 +162,20 @@ anguLara.controller('HttpPutController', function($scope, $routeParams, $http, A
             title: $scope.task.title
         });
 
-        console.log(data);
-
-       // alert(API_URL + "tasks/"+$scope.task.id);
-
-        $http.put(API_URL + "tasks/"+$scope.task.id)
-            .success(function (data, status, headers) {
-                $scope.ServerResponse = data;
-            })
-            .error(function (data, status, header, config) {
-                $scope.ServerResponse =  htmlDecode("Data: " + data +
-                    "\n\n\n\nstatus: " + status +
-                    "\n\n\n\nheaders: " + header +
-                    "\n\n\n\nconfig: " + config);
-            });
+        var url = API_URL + "tasks/"+$scope.task.id;
+console.log($.param($scope.task.title));
+        $http({
+            method: 'POST',
+            url: url,
+            data: $.param($scope.task.title),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(response) {
+            console.log(response);
+            location.reload();
+        }).error(function(response) {
+            console.log(response);
+            alert('This is embarassing. An error has occured. Please check the log for details');
+        });
     };
 });
 
