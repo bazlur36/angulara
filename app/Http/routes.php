@@ -26,3 +26,6 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('tasks', 'API\TaskController');
     Route::resource('employees', 'API\Employees');
 });
+
+
+Route::resource('api/v1/todos','API\TodosController');
