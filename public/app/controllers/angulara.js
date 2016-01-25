@@ -179,3 +179,74 @@ console.log($.param($scope.task.title));
     };
 });
 
+
+
+
+anguLara.controller('todoController', function($scope, $http) {
+
+    $scope.todos = [];
+    $scope.loading = false;
+
+    $scope.init = function() {
+        $scope.loading = true;
+        $http.get('/api/v1/todos').
+            success(function(data, status, headers, config) {
+                $scope.todos = data;
+                $scope.loading = false;
+
+            });
+    }
+
+    $scope.addTodo = function() {
+        $scope.loading = true;
+
+        $http.post('/api/v1/todos', {
+            title: $scope.todo.title,
+            done: $scope.todo.done
+        }).success(function(data, status, headers, config) {
+            $scope.todos.push(data);
+            $scope.todo = '';
+            $scope.loading = false;
+
+        }).error(function(data) {
+                console.log(data);
+                alert('Unable to delete');
+            });
+    };
+
+    $scope.updateTodo = function(todo) {
+        $scope.loading = true;
+
+        $http.put('/api/v1/todos/' + todo.id, {
+            title: todo.title,
+            done: todo.done
+        }).success(function(data, status, headers, config) {
+            todo = data;
+            $scope.loading = false;
+            console.log(status);
+
+        }).error(function(data) {
+                console.log(data);
+                alert('Unable to delete');
+            });;
+    };
+
+    $scope.deleteTodo = function(index) {
+        $scope.loading = true;
+
+        var todo = $scope.todos[index];
+
+        $http.delete('/api/v1/todos/' + todo.id)
+            .success(function() {
+                $scope.todos.splice(index, 1);
+                $scope.loading = false;
+
+            });;
+    };
+
+
+    $scope.init();
+
+});
+
+

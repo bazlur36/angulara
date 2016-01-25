@@ -29,3 +29,4 @@ Route::group(array('prefix' => 'api/v1'), function()
 
 
 Route::resource('api/v1/todos','API\TodosController');
+Route::get('todoapp','TodoAppController@index');

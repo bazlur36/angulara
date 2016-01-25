@@ -71,10 +71,9 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div ng-controller="angularaController">
-        <div ng-view></div>
-        <!-- Table-to-load-the-data Part -->
-    </div>
+    <div class="container">
+        @yield('content')
+    </div><!-- /.container -->
 </div>
 <!-- Load Javascript Libraries (AngularJS, JQuery, Bootstrap) -->
 <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>

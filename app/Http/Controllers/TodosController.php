@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Todo;
 use App\Http\Controllers\Controller;
 
 class TodosController extends Controller
@@ -26,12 +25,8 @@ class TodosController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request) {
-        $todo = new Todo();
-
-        $todo->title = $request->input('title');
-
-        $todo->save();
+    public function store() {
+        $todo = Todo::create(Request::all());
         return $todo;
     }
 
@@ -41,9 +36,9 @@ class TodosController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request,$id) {
-        $todo = Todo::findOrFail($id);
-        $todo->done = $request->input('done');
+    public function update($id) {
+        $todo = Todo::find($id);
+        $todo->done = Request::input('done');
         $todo->save();
 
         return $todo;
