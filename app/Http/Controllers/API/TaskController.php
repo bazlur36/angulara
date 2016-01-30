@@ -85,16 +85,10 @@ class TaskController extends Controller {
 	public function update(Request $request, $id)
 	{
 		$task = Task::findOrFail($id);
-
 		$task->title = $request->input("title");
-        $task->description = $request->input("description");
-        $task->created_by = $request->input("created_by");
-        $task->status = $request->input("status");
-        $task->deadline = $request->input("deadline");
-
 		$task->save();
 
-		return redirect()->route('tasks.index')->with('message', 'Item updated successfully.');
+        return $task;
 	}
 
 	/**

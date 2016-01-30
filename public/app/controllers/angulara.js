@@ -151,31 +151,22 @@ anguLara.controller('taskEditController', function($scope, $routeParams, $http, 
         });
 });
 
-anguLara.controller('HttpPutController', function($scope, $routeParams, $http, API_URL) {
-    $http.get(API_URL + "tasks/"+$routeParams.title)
-        .success(function(response) {
-            $scope.task = response;
-        });
+anguLara.controller('HttpPutController', function($scope, $http) {
+    $scope.updateTask = function(task) {
+        $scope.loading = true;
 
-    $scope.UpdateData = function () {
-        var data = $.param({
-            title: $scope.task.title
-        });
+        $http.put('/api/v1/tasks/' + task.id, {
+            title: task.title
+        }).success(function(data, status, headers, config) {
+            task = data;
+            $scope.loading = false;
+            alert('Updated');
+            console.log(status);
 
-        var url = API_URL + "tasks/"+$scope.task.id;
-console.log($.param($scope.task.title));
-        $http({
-            method: 'POST',
-            url: url,
-            data: $.param($scope.task.title),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(response) {
-            console.log(response);
-            location.reload();
-        }).error(function(response) {
-            console.log(response);
-            alert('This is embarassing. An error has occured. Please check the log for details');
-        });
+        }).error(function(data) {
+            console.log(data);
+            alert('Unable to Update');
+        });;
     };
 });
 
@@ -183,7 +174,6 @@ console.log($.param($scope.task.title));
 
 
 anguLara.controller('todoController', function($scope, $http) {
-
     $scope.todos = [];
     $scope.loading = false;
 
