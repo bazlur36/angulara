@@ -1,4 +1,4 @@
-@extends('app')
+@extends('app') 
 @section('content')
 <div class="container" ng-app="anguLara" ng-controller="todoController">
     <h1>TodoApp index view</h1>
